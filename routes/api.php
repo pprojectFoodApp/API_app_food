@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-// Route::post('/login', [UsersController::class, 'login']);
+//api auth
 Route::controller(UsersController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
@@ -28,3 +30,16 @@ Route::controller(UsersController::class)->group(function () {
     Route::post('refresh', 'refresh');
 
 });
+
+// api product
+Route::controller(ProductController::class)->group(
+    function () {
+        Route::get('products', 'index');
+        Route::get('products/{id}', 'show');
+        Route::post('products', 'store');
+        Route::put('products/{id}', 'update');
+        Route::delete('products/{id}', 'destroy');
+
+
+    }
+);
